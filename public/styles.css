@@ -1,0 +1,21 @@
+.header{
+    color:#DA0C81
+}
+textarea{
+    resize: none;
+    border-color: #DA0C81;
+}
+.pink{
+    background-color: #DA0C81;
+    border-color: #DA0C81;
+}
+.someextrapadding{
+    margin: 100px 100px;
+}
+.pinkdelete{
+    color: #DA0C81;
+}
+button{
+    border: none;
+    background-color: #FFFFFF;
+}

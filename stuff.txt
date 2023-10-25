@@ -1,0 +1,93 @@
+npm install -g truffle
+
+truffle init
+
+truffle.js:
+module.exports = {
+  networks: {
+    development: {
+      host: "localhost",
+      port: 8545,
+      network_id: "*" // Match any network id (for Ganache)
+    },
+    mainnet: {
+      provider: () => new HDWalletProvider(process.env.MNEMONIC, "https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID"),
+      network_id: 1,
+      gas: 5500000, // Adjust gas limit as needed
+      gasPrice: 20000000000 // Adjust gas price as needed
+    }
+  },
+  compilers: {
+    solc: {
+      version: "0.8.0" // Use the appropriate Solidity compiler version
+    }
+  }
+};
+
+
+2_deploy.js
+const TellonymContract = artifacts.require("TellonymContract");
+
+module.exports = function(deployer) {
+  deployer.deploy(TellonymContract);
+};
+
+
+truffle migrate --network mainnet
+
+truffle migrate --network deployment
+
+npm i ganache
+ganache-cli
+
+
+To reset:
+truffle migrate --reset
+truffle networks --clean
+truffle compile
+truffle migrate 
+
+Suppose deployment is not working:
+
+
+
+Truffle console:
+truffle console
+const TellonymContract = artifacts.require("TellonymContract");
+let myContract = await TellonymContract.deployed();
+myContract.abi 
+
+
+Keep updating the ABI and the address and make sure they stay up-to-date.
+
+DON'T TYPE rs!!!!!!!!!!
+
+geth version
+geth --datadir ./data init genesis.json 
+geth --datadir ~/etherprivate/ --networkid 786 --http --http.api 'web3,eth,net,debug,personal,miner' --http.corsdomain '*' --allow-insecure-unlock
+
+geth attach http://127.0.0.1:8545 
+
+Address: 0x4d0a106a41B9eB8f2f3E56403B07acD29B547920
+Password: TH34jw281
+
+personal.newAccount('TH34jw281') 
+
+personal.unlockAccount("0x4d0a106a41B9eB8f2f3E56403B07acD29B547920", "TH34jw281", null); 
+miner.setEtherbase("0x4d0a106a41B9eB8f2f3E56403B07acD29B547920")
+
+miner.start() 
+
+eth.getBalance("0x4d0a106a41B9eB8f2f3E56403B07acD29B547920")
+
+To check if mining is happening:
+geth --datadir ./path/to.datadir --networkid 786 console 2>> Eth.log
+
+And then in new terminal, 
+tail -f Eth.log
+
+Or else:
+geth --authrpc.addr localhost --authrpc.port 8551 --authrpc.vhosts localhost --authrpc.jwtsecret /tmp/jwtsecret
+
+If not working:
+rm -r data

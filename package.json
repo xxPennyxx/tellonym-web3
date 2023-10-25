@@ -1,0 +1,21 @@
+{
+  "name": "tellonym",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cameron Green's fan club xD",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "ganache": "^7.9.1",
+    "geth": "^0.4.0",
+    "nodemon": "^3.0.1",
+    "truffle-hdwallet-provider": "^1.0.6",
+    "web3": "^4.1.2"
+  }
+}
