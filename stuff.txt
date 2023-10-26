@@ -91,3 +91,6 @@ geth --authrpc.addr localhost --authrpc.port 8551 --authrpc.vhosts localhost --a
 
 If not working:
 rm -r data
+
+
+eth.syncing returns false

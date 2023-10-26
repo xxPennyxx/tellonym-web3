@@ -20,11 +20,9 @@ contract TellonymContract {
     function removeTell(string memory tell) public {
         for (uint i = 0; i < tells.length; i++) {
             if (keccak256(abi.encodePacked(tells[i])) == keccak256(abi.encodePacked(tell))) {
-                // Found a matching tell, remove it by shifting the array
                 for (uint j = i; j < tells.length - 1; j++) {
                     tells[j] = tells[j + 1];
                 }
-                // Reduce the array length by 1
                 tells.pop();
                 break;
             }
