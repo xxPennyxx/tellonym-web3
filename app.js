@@ -3,7 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const {Web3} = require('web3');
 const app = express();
-const blockNumber=7;
+const blockNumber=4565829;
+
 
 const ethereumNodeUrl = "https://sepolia.infura.io/v3/ae97616284604034b1f25fc5bda9e253";
 // const ethereumNodeUrl = "https://sepolia.infura.io/v3/3dadb3f57b2644588d8441dcacf48308";
@@ -11,7 +12,7 @@ const ethereumNodeUrl = "https://sepolia.infura.io/v3/ae97616284604034b1f25fc5bd
 
 const web3 = new Web3(new Web3.providers.HttpProvider(ethereumNodeUrl));
 
-const contractAddress = '0xD50327F14b9a2d71c30f6d366AA8d546F20B73DB';
+const contractAddress = '0x91c77d4A2Fcc25a73cE5F37C23d9C521C83d98CD';
 const contractAbi=[
   {
     inputs: [],
@@ -84,9 +85,17 @@ app.use(express.static("public"));
 
 app.get("/", async function (req, res) {
     try {
-        const result = await contractInstance.methods.getTells().call();
+      const blockData = await web3.eth.getBlock(blockNumber);
+        if (blockData){
+          // const result = await contractInstance.methods.getTells().call({},blockData.number);
+            const result = await contractInstance.methods.getTells().call({ from: web3.eth.accounts[0], block: blockNumber });
+
         tells = result;
         res.render("index", { tells1: tells });
+
+
+        }
+        
     } catch (error) {
         console.error("Error:", error);
         res.status(500).json({ success: false, message: "Couldn't get tells" });
