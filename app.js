@@ -73,7 +73,6 @@ const contractAbi=[
 const contractInstance = new web3.eth.Contract(contractAbi, contractAddress);
 
 const senderAddress = process.env.SENDER_ADDRESS; 
-// const senderAddress='0x182fc8a276E3D06888fD74E442485F3FD6F279FB';
 const privateKey = process.env.PVT_KEY; // Replace with your private key
 
 let tells=[];
@@ -89,7 +88,7 @@ async function loadTells() {
 
 app.get("/", async function (req, res) {
     
-  // tells = await loadTells();
+  tells = await loadTells();
 
     res.render("index", { tells1: tells });
 });
@@ -100,9 +99,9 @@ app.post("/", async function (req, res) {
     const tell = req.body.newTell;
     await contractInstance.methods.addTell(tell).send({ from: senderAddress });
 
-    // tells = await loadTells();
+    tells = await loadTells();
         console.log("Tell added successfully");
-        tells.push(tell);
+        // tells.push(tell);
         res.redirect("/");
 });
 
@@ -112,8 +111,8 @@ app.post("/delete", async function (req, res) {
         console.log("Tell deleted" );
         const tellToDelete = req.body.tellToDelete;
     await contractInstance.methods.removeTell(tellToDelete).send({ from: senderAddress });
-    // tells = await loadTells();
-        tells = tells.filter(t => t !== tell);
+    tells = await loadTells();
+        // tells = tells.filter(t => t !== tell);
         res.redirect("/");
 });
 
