@@ -3,23 +3,21 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const {Web3} = require('web3');
 const app = express();
-const blockNumber=4565829;
-
-
 const ethereumNodeUrl = "https://sepolia.infura.io/v3/ae97616284604034b1f25fc5bda9e253";
 // const ethereumNodeUrl = "https://sepolia.infura.io/v3/3dadb3f57b2644588d8441dcacf48308";
 
 
 const web3 = new Web3(new Web3.providers.HttpProvider(ethereumNodeUrl));
 
-const contractAddress = '0x91c77d4A2Fcc25a73cE5F37C23d9C521C83d98CD';
+const contractAddress = '0x66C059435786a88E8df5E8f967c5660a1736E3B2';
 const contractAbi=[
   {
     inputs: [],
     stateMutability: 'nonpayable',
     type: 'constructor',
     constant: undefined,
-    payable: undefined
+    payable: undefined,
+    signature: 'constructor'
   },
   {
     inputs: [],
@@ -71,10 +69,11 @@ const contractAbi=[
     payable: undefined,
     signature: '0x7c0fe400'
   }
-]
+] 
 const contractInstance = new web3.eth.Contract(contractAbi, contractAddress);
 
 const senderAddress = process.env.SENDER_ADDRESS; 
+// const senderAddress='0x182fc8a276E3D06888fD74E442485F3FD6F279FB';
 const privateKey = process.env.PVT_KEY; // Replace with your private key
 
 let tells=[];
@@ -83,69 +82,39 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+async function loadTells() {
+  const tells = await contractInstance.methods.getTells().call();
+  return tells;
+}
+
 app.get("/", async function (req, res) {
-    try {
-      const blockData = await web3.eth.getBlock(blockNumber);
-        if (blockData){
-          // const result = await contractInstance.methods.getTells().call({},blockData.number);
-            const result = await contractInstance.methods.getTells().call({ from: web3.eth.accounts[0], block: blockNumber });
+    
+  // tells = await loadTells();
 
-        tells = result;
-        res.render("index", { tells1: tells });
-
-
-        }
-        
-    } catch (error) {
-        console.error("Error:", error);
-        res.status(500).json({ success: false, message: "Couldn't get tells" });
-    }
-
-    // res.render("index", { tells1: tells });
+    res.render("index", { tells1: tells });
 });
 
 app.post("/", async function (req, res) {
-    try {
-        const tell = req.body.newTell;
-        const gasLimit = await contractInstance.methods.addTell(tell).estimateGas({ from: senderAddress, to: contractAddress, value: web3.utils.toWei('0', 'ether') });
-        await contractInstance.methods.addTell(tell).send({
-          from: senderAddress,
-          gas: gasLimit, // Set the gas limit here
-      });
+   
 
+    const tell = req.body.newTell;
+    await contractInstance.methods.addTell(tell).send({ from: senderAddress });
+
+    // tells = await loadTells();
         console.log("Tell added successfully");
         tells.push(tell);
         res.redirect("/");
-    } catch (error) {
-        console.error("Error:", error);
-        res.status(500).json({ success: false, message: "Tell addition failed" });
-    }
-
-
-    // const tell = req.body.newTell;
-    //     console.log("Tell added successfully");
-    //     tells.push(tell);
-    //     res.redirect("/");
 });
 
 
 app.post("/delete", async function (req, res) {
-    try {
-        const tell = req.body.tellToDelete;
-        const gasLimit = await contractInstance.methods.removeTell(tell).estimateGas({ from: senderAddress, to: contractAddress, value: web3.utils.toWei('0', 'ether') });
+    
         console.log("Tell deleted" );
+        const tellToDelete = req.body.tellToDelete;
+    await contractInstance.methods.removeTell(tellToDelete).send({ from: senderAddress });
+    // tells = await loadTells();
         tells = tells.filter(t => t !== tell);
         res.redirect("/");
-        
-    } catch (error) {
-        console.error("Error:", error);
-        res.status(500).json({ success: false, message: "Tell deletion failed" });
-    }
-
-    // const tell = req.body.tellToDelete;
-    //     console.log("Tell deleted" );
-    //     tells = tells.filter(t => t !== tell);
-    //     res.redirect("/");
 });
 
 

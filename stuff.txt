@@ -46,6 +46,7 @@ truffle migrate --reset
 truffle networks --clean
 truffle compile
 truffle migrate 
+truffle develop
 
 Suppose deployment is not working:
 
