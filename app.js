@@ -5,14 +5,14 @@ const {Web3} = require('web3');
 const simpleStorage=require("./build/contracts/SimpleStorage.json")
 const tellonymContract=require("./build/contracts/TellonymContract.json")
 const app = express();
-const ethereumNodeUrl = "https://sepolia.infura.io/v3/ae97616284604034b1f25fc5bda9e253";
+// const ethereumNodeUrl = "https://sepolia.infura.io/v3/ae97616284604034b1f25fc5bda9e253";
 const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
-const contractAddress = '0x38b9E7B887a21a0f28EF675881A0C5E438E04Ff5';
+const contractAddress = '0x9E00df4245CA56F4547E3D689ed6394Be9DaB907';
 const contractAbi = tellonymContract.abi;
 
 const contractInstance = new web3.eth.Contract(contractAbi, contractAddress);
 
-const senderAddress = process.env.SENDER_ADDRESS; 
+const senderAddress = '0x96ccD2f06Cc97313011900369F641CB7a1bbbcb3'; 
 const privateKey = process.env.PVT_KEY; // Replace with your private key
 
 let tells=[];
@@ -22,8 +22,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 async function loadTells() {
-  const tellsCount = await contractInstance.methods.getTells().call();
-  const tells = new Array(parseInt(tellsCount.__length__) || 0);
+  const tells = await contractInstance.methods.getTells().call();
+  // const tells = new Array(parseInt(tellsCount.__length__) || 0);
 
   return tells;
 }

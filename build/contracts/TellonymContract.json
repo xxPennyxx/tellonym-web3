@@ -11,29 +11,41 @@
       "name": "owner",
       "outputs": [
         {
+          "internalType": "address",
+          "name": "",
           "type": "address"
         }
       ],
       "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "tells",
-      "outputs": [
-        {
-          "type": "string[]",
-          "internalType": "string[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
         {
-          "type": "string",
-          "internalType": "string"
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "tells",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "tell",
+          "type": "string"
         }
       ],
       "name": "addTell",
@@ -46,18 +58,21 @@
       "name": "getTells",
       "outputs": [
         {
-          "type": "string[]",
-          "internalType": "string[]"
+          "internalType": "string[]",
+          "name": "",
+          "type": "string[]"
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
         {
-          "type": "string",
-          "internalType": "string"
+          "internalType": "string",
+          "name": "tell",
+          "type": "string"
         }
       ],
       "name": "removeTell",
@@ -7773,8 +7788,8 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x38b9E7B887a21a0f28EF675881A0C5E438E04Ff5",
-      "transactionHash": "0x8f36935f3d4d2c41eb0a534794d6bcc12bd3bc31dd2e0ca58732b458c29c65c8"
+      "address": "0x9E00df4245CA56F4547E3D689ed6394Be9DaB907",
+      "transactionHash": "0xc20d3cf599c4b722b7e8b94989145de1da27c4fad695c9089c4b7d1d2684f909"
     },
     "11155111": {
       "events": {},
@@ -7808,7 +7823,7 @@
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2023-11-02T07:11:20.317Z",
+  "updatedAt": "2023-11-02T10:53:15.025Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
