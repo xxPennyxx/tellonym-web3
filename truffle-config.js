@@ -10,14 +10,17 @@ module.exports = {
   networks: {
     development: {
       host: "127.0.0.1",
-      port: 8545,
+      port: 7545,//instead of 8545-- to connect to Ganache GUI
       network_id: "*", 
     },
-    testnet: {
-      provider: () => new HDWalletProvider(MNEMONIC, "https://sepolia.infura.io/v3/ae97616284604034b1f25fc5bda9e253"),
-      network_id: 11155111,
-      gas: 6721975, // Adjust gas limit as needed
-      gasPrice: 20000000000, // Adjust gas price as needed
+    goerli: {
+      provider: () => new HDWalletProvider(MNEMONIC, "wss://eth-goerli.g.alchemy.com/v2/y2azKY2HYhy9a7Vt9ZKmJK3sYWHxJojW"),
+      network_id: 5,
+      confirmations:2,
+      timeoutBlocks:200, 
+      skipDryRun:true,
+      // gas: 6721975, // Adjust gas limit as needed
+      // gasPrice: 20000000000, // Adjust gas price as needed
       networkCheckTimeout: 40000
     }
   },

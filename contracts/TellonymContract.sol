@@ -5,7 +5,7 @@ contract TellonymContract {
     address public owner;
     string[] public tells;
 
-    constructor() public {
+    constructor() {
         owner = msg.sender;
         tells = new string[](0);
 
