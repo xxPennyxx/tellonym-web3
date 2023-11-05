@@ -7,12 +7,12 @@ const tellonymContract=require("./build/contracts/TellonymContract.json")
 const app = express();
 // const ethereumNodeUrl = "https://sepolia.infura.io/v3/ae97616284604034b1f25fc5bda9e253";
 const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
-const contractAddress = '0x9E00df4245CA56F4547E3D689ed6394Be9DaB907';
+const contractAddress = '0x125E9B6f1627782E116f7A418F413414fB69760c';
 const contractAbi = tellonymContract.abi;
 
 const contractInstance = new web3.eth.Contract(contractAbi, contractAddress);
 
-const senderAddress = '0x96ccD2f06Cc97313011900369F641CB7a1bbbcb3'; 
+const senderAddress = '0x6154E7d0f00D9166b1219631d53be9315960698e'; 
 const privateKey = process.env.PVT_KEY; // Replace with your private key
 
 let tells=[];
