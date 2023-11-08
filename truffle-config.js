@@ -13,8 +13,8 @@ module.exports = {
       port: 7545,//instead of 8545-- to connect to Ganache GUI
       network_id: "*", 
     },
-    goerli: {
-      provider: () => new HDWalletProvider(MNEMONIC, "wss://eth-goerli.g.alchemy.com/v2/y2azKY2HYhy9a7Vt9ZKmJK3sYWHxJojW"),
+    sepolia: {
+      provider: () => new HDWalletProvider(MNEMONIC, "wss://eth-sepolia.g.alchemy.com/v2/_W1JE5CysOE8vqWtwA0D0YBZM3HYKjW7"),
       network_id: 5,
       confirmations:2,
       timeoutBlocks:200, 
