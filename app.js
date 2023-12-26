@@ -2,17 +2,18 @@ require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const {Web3} = require('web3');
-const simpleStorage=require("./build/contracts/SimpleStorage.json")
+
+// const simpleStorage=require("./build/contracts/SimpleStorage.json") //not required ig
 const tellonymContract=require("./build/contracts/TellonymContract.json")
-const app = express();
-// const ethereumNodeUrl = "https://sepolia.infura.io/v3/ae97616284604034b1f25fc5bda9e253";
-const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
-const contractAddress = '0x6A7C6296389864c6D454117B59576a8EF72a1f37';
+const app = express();//Init your express app
+
+const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));//connect to the local Ganache blockchain instead of the actual blockchain
+const contractAddress = process.env.CONTRACT_ADDRESS ;//Import your contract address from .env
 const contractAbi = tellonymContract.abi;
 
-const contractInstance = new web3.eth.Contract(contractAbi, contractAddress);
+const contractInstance = new web3.eth.Contract(contractAbi, contractAddress);//Init the contract instance using its address and ABI
 
-const senderAddress = '0xE6232844BCcFdb87d1A8bfEd2979b691fb17CfA6'; 
+const senderAddress = process.env.SENDER_ADDRESS; 
 const privateKey = process.env.PVT_KEY; // Replace with your private key
 
 let tells=[];
@@ -23,16 +24,12 @@ app.use(express.static("public"));
 
 async function loadTells() {
   const tells = await contractInstance.methods.getTells().call();
-  // const tells = new Array(parseInt(tellsCount.__length__) || 0);
-
   return tells;
 }
 
 app.get("/", async function (req, res) {
-    
   tells = await loadTells();
   // console.log(tells);
-
     res.render("index", { tells1: tells });
 });
 

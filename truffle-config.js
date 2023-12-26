@@ -14,13 +14,11 @@ module.exports = {
       network_id: "*", 
     },
     sepolia: {
-      provider: () => new HDWalletProvider(MNEMONIC, "wss://eth-sepolia.g.alchemy.com/v2/_W1JE5CysOE8vqWtwA0D0YBZM3HYKjW7"),
+      provider: () => new HDWalletProvider(MNEMONIC, "wss://eth-sepolia.g.alchemy.com/v2/_W1JE5CysOE8vqWtwA0D0YBZM3HYKjW7"),//Replace with your application URL
       network_id: 5,
       confirmations:2,
       timeoutBlocks:200, 
       skipDryRun:true,
-      // gas: 6721975, // Adjust gas limit as needed
-      // gasPrice: 20000000000, // Adjust gas price as needed
       networkCheckTimeout: 40000
     }
   },

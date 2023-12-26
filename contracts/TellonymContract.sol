@@ -3,9 +3,9 @@ pragma solidity >=0.4.22 <0.9.0;
 
 contract TellonymContract {
     address public owner;
-    string[] public tells;
+    string[] public tells; //data structure to list your tells
 
-    constructor() {
+    constructor() { //Init your array
         owner = msg.sender;
         tells = new string[](0);
 
@@ -19,7 +19,7 @@ contract TellonymContract {
         return tells;
     }
 
-    function removeTell(string memory tell) public {
+    function removeTell(string memory tell) public { //Delete a particular tell from the array
         for (uint i = 0; i < tells.length; i++) {
             if (keccak256(abi.encodePacked(tells[i])) == keccak256(abi.encodePacked(tell))) {
                 for (uint j = i; j < tells.length - 1; j++) {
